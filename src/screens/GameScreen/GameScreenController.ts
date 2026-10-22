@@ -45,14 +45,27 @@ export class GameScreenController extends ScreenController {
 	 * Start the countdown timer
 	 */
 	private startTimer(): void {
-		// TODO: Task 3 - Implement countdown timer using setInterval
+		this.stopTimer();
+		let timeRemaining = GAME_DURATION;
+
+		this.gameTimer = window.setInterval(() => {
+			timeRemaining -= 1;
+			this.view.updateTimer(timeRemaining);
+
+			if (timeRemaining <= 0) {
+				this.endGame();
+			}
+		}, 1000);
 	}
 
 	/**
 	 * Stop the timer
 	 */
 	private stopTimer(): void {
-		// TODO: Task 3 - Stop the timer using clearInterval
+		if (this.gameTimer !== null) {
+			window.clearInterval(this.gameTimer);
+			this.gameTimer = null;
+		}
 	}
 
 	/**
